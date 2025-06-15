@@ -67,10 +67,10 @@ Here is a visual representation of the connections described above. GitHub will 
 ```mermaid
 graph TD
     subgraph "Logic Power & Control (DC)"
-        pico[Raspberry Pi Pico W]
-        relay_logic[Relay Module Logic Side]
-        rain_sensor[Rain Sensor]
-        power_5v[5V Power via USB]
+        power_5v[5V Power via USB]:::power
+        pico[Raspberry Pi Pico W]:::component
+        relay_logic[Relay Module Logic Side]:::component
+        rain_sensor[Rain Sensor]:::component
 
         power_5v --> pico
         pico -- "VBUS (5V) & GND" --> relay_logic
@@ -81,9 +81,9 @@ graph TD
     end
 
     subgraph "High Voltage & Irrigation (24VAC)"
-        relay_switch[Relay Module Switch Side]
-        valves[Solenoid Valves (x4)]
-        power_24vac[24VAC Power Supply]
+        power_24vac[24VAC Power Supply]:::power
+        relay_switch[Relay Module Switch Side]:::component
+        valves[Solenoid Valves (x4)]:::component
 
         power_24vac -- "Common Wire to All Valves" --> valves
         power_24vac -- "Hot Wire" --> relay_switch(Common Terminals)
@@ -92,9 +92,7 @@ graph TD
 
     %% Styling
     classDef component fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef power fill:#f2f2f2,stroke:#333;
-    class pico,relay_logic,relay_switch,rain_sensor,valves,power_24vac,power_5v component;
-    class power_5v,power_24vac power;
+    classDef power fill:#f2f2f2,stroke:#333,stroke-width:2px;
 ```
 
 ---
