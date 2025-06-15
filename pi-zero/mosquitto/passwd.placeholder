@@ -1,0 +1,14 @@
+This is a placeholder file. The actual password file for Mosquitto should be generated using the `mosquitto_passwd` utility.
+
+On your Raspberry Pi Zero, run the following commands:
+
+1. Create the password file and add the 'pico' user:
+   sudo mosquitto_passwd -c /etc/mosquitto/passwd pico
+
+   You will be prompted to enter a password. Use the same password you set in the `pico/secrets.py` file for MQTT_PASSWORD.
+
+2. (Optional) Add a user for Home Assistant if needed:
+   sudo mosquitto_passwd -b /etc/mosquitto/passwd homeassistant YOUR_HA_PASSWORD
+
+3. Set the ownership of the password file to the mosquitto user:
+   sudo chown mosquitto:mosquitto /etc/mosquitto/passwd 

@@ -1,0 +1,20 @@
+# ----------------------------------
+# Home Assistant - Sensor Configuration
+# ----------------------------------
+
+# Sensor to track the status of the Raspberry Pi Pico
+- platform: mqtt
+  name: "Pico Irrigation Status"
+  state_topic: "pico/status"
+  value_template: "{{ value_json.status }}"
+  icon: mdi:chip
+
+# You could also add sensors for weather data here
+# that could be used in automations. For example:
+#
+# - platform: openweathermap
+#   api_key: YOUR_OPENWEATHERMAP_API_KEY
+#   monitored_conditions:
+#     - temperature
+#     - humidity
+#     - rain

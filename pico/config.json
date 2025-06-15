@@ -1,0 +1,8 @@
+{
+  "schedule": [
+    {"zone": 1, "hour": 6, "minute": 0, "duration": 10},
+    {"zone": 2, "hour": 6, "minute": 15, "duration": 10},
+    {"zone": 3, "hour": 18, "minute": 0, "duration": 12},
+    {"zone": 4, "hour": 18, "minute": 20, "duration": 8}
+  ]
+}

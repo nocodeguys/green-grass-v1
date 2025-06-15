@@ -1,0 +1,71 @@
+# ----------------------------------
+# Home Assistant - Main Configuration
+# ----------------------------------
+
+# Loads frontend Lovelace UI from ui-lovelace.yaml
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Enables configuration UI
+config:
+
+# Enables automation editor
+automation: !include automations.yaml
+
+# Enables script editor
+script:
+
+# Enables scene editor
+scene:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Default configuration allows adding things via the UI
+default_config:
+
+# --- MQTT Integration ---
+# Connects Home Assistant to the local Mosquitto broker
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  # If you set a password for Home Assistant in mosquitto's passwd file, add it here
+  # username: homeassistant
+  # password: YOUR_HA_PASSWORD
+
+# --- File-based configurations ---
+# Include other configuration files
+sensor: !include sensors.yaml
+
+# Example of how to create input helpers for the schedule
+# These can be controlled from the UI and used in automations.
+input_number:
+  irrigation_zone1_hour:
+    name: "Zone 1 Hour"
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+    mode: box
+  irrigation_zone1_minute:
+    name: "Zone 1 Minute"
+    initial: 0
+    min: 0
+    max: 59
+    step: 1
+    mode: box
+  irrigation_zone1_duration:
+    name: "Zone 1 Duration (Mins)"
+    initial: 10
+    min: 0
+    max: 60
+    step: 1
+    mode: box
+
+# Repeat for other zones as needed...
+
+input_boolean:
+  irrigation_send_schedule:
+    name: "Send New Schedule to Pico"
+    icon: mdi:send

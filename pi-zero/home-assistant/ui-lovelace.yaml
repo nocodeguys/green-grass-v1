@@ -1,0 +1,47 @@
+# ----------------------------------
+# Home Assistant - Lovelace UI
+# ----------------------------------
+
+title: Irrigation Control
+views:
+  - title: Schedule
+    path: schedule
+    icon: mdi:sprinkler-variant
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: >
+              ## Irrigation System Control Center
+              Use the controls below to set the irrigation schedule for each zone.
+              After setting the desired times and durations, press the **Send New Schedule to Pico** button to update the controller.
+
+          - type: entities
+            title: System Status & Control
+            entities:
+              - entity: sensor.pico_irrigation_status
+              - entity: input_boolean.irrigation_send_schedule
+
+      - type: vertical-stack
+        title: "Zone 1 Schedule"
+        cards:
+          - type: entities
+            entities:
+              - entity: input_number.irrigation_zone1_hour
+              - entity: input_number.irrigation_zone1_minute
+              - entity: input_number.irrigation_zone1_duration
+
+      # To add more zones, copy the vertical-stack card above and
+      # create corresponding input_number helpers in configuration.yaml
+      # for irrigation_zone2_hour, irrigation_zone2_minute, etc.
+
+      # Example for Zone 2:
+      #
+      # - type: vertical-stack
+      #   title: "Zone 2 Schedule"
+      #   cards:
+      #     - type: entities
+      #       entities:
+      #         - entity: input_number.irrigation_zone2_hour
+      #         - entity: input_number.irrigation_zone2_minute
+      #         - entity: input_number.irrigation_zone2_duration

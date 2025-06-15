@@ -1,0 +1,37 @@
+# ----------------------------------
+# Home Assistant - Automations
+# ----------------------------------
+
+- alias: 'Irrigation - Send Schedule to Pico'
+  id: irrigation_send_schedule_to_pico
+  trigger:
+    - platform: state
+      entity_id: input_boolean.irrigation_send_schedule
+      to: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "pico/schedule/set"
+        payload_template: >
+          {
+            "schedule": [
+              {
+                "zone": 1,
+                "hour": {{ states('input_number.irrigation_zone1_hour') | int }},
+                "minute": {{ states('input_number.irrigation_zone1_minute') | int }},
+                "duration": {{ states('input_number.irrigation_zone1_duration') | int }}
+              }
+              // Add other zones here in the same format
+              // For example:
+              //,
+              // {
+              //   "zone": 2,
+              //   "hour": {{ states('input_number.irrigation_zone2_hour') | int }},
+              //   "minute": {{ states('input_number.irrigation_zone2_minute') | int }},
+              //   "duration": {{ states('input_number.irrigation_zone2_duration') | int }}
+              // }
+            ]
+          }
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.irrigation_send_schedule
+  mode: single
