@@ -60,6 +60,45 @@ When a relay is activated by the Pico, it closes the circuit between C and NO, a
 
 ---
 
+## Visual Diagram
+
+Here is a visual representation of the connections described above. GitHub will render this into a diagram.
+
+```mermaid
+graph TD
+    subgraph "Logic Power & Control (DC)"
+        pico[Raspberry Pi Pico W]
+        relay_logic[Relay Module Logic Side]
+        rain_sensor[Rain Sensor]
+        power_5v[5V Power via USB]
+
+        power_5v --> pico
+        pico -- "VBUS (5V) & GND" --> relay_logic
+        pico -- "GPIO 2-5 (Control Signals)" --> relay_logic(IN1-4)
+
+        pico -- "3V3 & GND" --> rain_sensor
+        rain_sensor -- "Digital Out" --> pico(GPIO16)
+    end
+
+    subgraph "High Voltage & Irrigation (24VAC)"
+        relay_switch[Relay Module Switch Side]
+        valves[Solenoid Valves (x4)]
+        power_24vac[24VAC Power Supply]
+
+        power_24vac -- "Common Wire to All Valves" --> valves
+        power_24vac -- "Hot Wire" --> relay_switch(Common Terminals)
+        relay_switch(Normally Open Terminals) -- "Switched Hot to Each Valve" --> valves
+    end
+
+    %% Styling
+    classDef component fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef power fill:#f2f2f2,stroke:#333;
+    class pico,relay_logic,relay_switch,rain_sensor,valves,power_24vac,power_5v component;
+    class power_5v,power_24vac power;
+```
+
+---
+
 ## Power Supply
 
 -   The **Raspberry Pi Pico W** is powered via its Micro USB port from a reliable 5V source.
