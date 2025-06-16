@@ -1,5 +1,6 @@
 import network
 import time
+import machine
 import uasyncio as asyncio
 
 import secrets
